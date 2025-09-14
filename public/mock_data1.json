@@ -1,0 +1,36 @@
+{
+    "nodes": [
+      {"id": "Act1", "type": "act", "label": "social"},
+      {"id": "Act2", "type": "act", "label": "ai"},
+      {"id": "Act3", "type": "act", "label": "ai"},
+
+      {"id": "Area1", "type": "area", "city": "SH"},
+      {"id": "Area2", "type": "area", "city": "SH"},
+      {"id": "Person1", "type": "person", "name": "person1-name"},
+      {"id": "Person2", "type": "person", "name": "person2-name"},
+      {"id": "Person3", "type": "person", "name": "person3-name"},
+      {"id": "Person4", "type": "person", "name": "person4-name"},
+      {"id": "Person5", "type": "person", "name": "person5-name"},
+      {"id": "Person6", "type": "person", "name": "person6-name"},
+      {"id": "Person7", "type": "person", "name": "person7-name"},
+      {"id": "Person8", "type": "person", "name": "person8-name"},
+      {"id": "Person9", "type": "person", "name": "person9-name"},
+      {"id": "Person10", "type": "person", "name": "person10-name"}
+    ],
+    "links": [
+      {"source": "Person1", "target": "Act1", "value": 2},
+      {"source": "Act1", "target": "Person2", "value": 1},
+      {"source": "Act1", "target": "Area1", "value": 3},
+      {"source": "Act1", "target": "Person3", "value": 1},
+      {"source": "Act1", "target": "Person4", "value": 1},
+      {"source": "Person5", "target": "Act2", "value": 2},
+      {"source": "Act2", "target": "Area1", "value": 3},
+      {"source": "Act2", "target": "Person6", "value": 1},
+      {"source": "Act2", "target": "Person7", "value": 1},
+      {"source": "Act2", "target": "Person8", "value": 1},
+      {"source": "Act2", "target": "Person9", "value": 1},
+      {"source": "Act2", "target": "Person10", "value": 1},
+      {"source": "Person3", "target": "Act3", "value": 2},
+      {"source": "Act1", "target": "Area2", "value": 3}
+    ]
+  }
