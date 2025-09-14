@@ -1,0 +1,1274 @@
+{
+  "nodes": [
+    {
+      "id": "member:Alice",
+      "type": "member",
+      "name": "Alice",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Oscar",
+      "type": "member",
+      "name": "Oscar",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Intro to Blockchain@2025-09-24 09:45",
+      "type": "event",
+      "name": "Intro to Blockchain",
+      "topic": "Intro to Blockchain",
+      "time": "2025-09-24 09:45"
+    },
+    {
+      "id": "space:Library Room 3",
+      "type": "space",
+      "name": "Library Room 3",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Charlie",
+      "type": "member",
+      "name": "Charlie",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Quinn",
+      "type": "member",
+      "name": "Quinn",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Tauri for Desktop Apps@2025-09-17 19:30",
+      "type": "event",
+      "name": "Tauri for Desktop Apps",
+      "topic": "Tauri for Desktop Apps",
+      "time": "2025-09-17 19:30"
+    },
+    {
+      "id": "space:Cafe 706",
+      "type": "space",
+      "name": "Cafe 706",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Fiona",
+      "type": "member",
+      "name": "Fiona",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Laura",
+      "type": "member",
+      "name": "Laura",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-10-14 19:30",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-10-14 19:30"
+    },
+    {
+      "id": "space:Community Hall",
+      "type": "space",
+      "name": "Community Hall",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:George",
+      "type": "member",
+      "name": "George",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Rita",
+      "type": "member",
+      "name": "Rita",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Web3 and Society@2025-10-02 09:45",
+      "type": "event",
+      "name": "Web3 and Society",
+      "topic": "Web3 and Society",
+      "time": "2025-10-02 09:45"
+    },
+    {
+      "id": "member:Hannah",
+      "type": "member",
+      "name": "Hannah",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Nina",
+      "type": "member",
+      "name": "Nina",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Co-Learning Kickoff@2025-09-24 15:15",
+      "type": "event",
+      "name": "Co-Learning Kickoff",
+      "topic": "Co-Learning Kickoff",
+      "time": "2025-09-24 15:15"
+    },
+    {
+      "id": "space:Online Zoom Room",
+      "type": "space",
+      "name": "Online Zoom Room",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-10-14 15:15",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-10-14 15:15"
+    },
+    {
+      "id": "space:Virtual Discord",
+      "type": "space",
+      "name": "Virtual Discord",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Bob",
+      "type": "member",
+      "name": "Bob",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Judy",
+      "type": "member",
+      "name": "Judy",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Holacracy in Startups@2025-10-11 19:00",
+      "type": "event",
+      "name": "Holacracy in Startups",
+      "topic": "Holacracy in Startups",
+      "time": "2025-10-11 19:00"
+    },
+    {
+      "id": "member:Ethan",
+      "type": "member",
+      "name": "Ethan",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Kevin",
+      "type": "member",
+      "name": "Kevin",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Holacracy in Startups@2025-09-26 17:00",
+      "type": "event",
+      "name": "Holacracy in Startups",
+      "topic": "Holacracy in Startups",
+      "time": "2025-09-26 17:00"
+    },
+    {
+      "id": "event:Global Hackathon Trends@2025-09-26 19:30",
+      "type": "event",
+      "name": "Global Hackathon Trends",
+      "topic": "Global Hackathon Trends",
+      "time": "2025-09-26 19:30"
+    },
+    {
+      "id": "event:Intro to Blockchain@2025-10-14 16:15",
+      "type": "event",
+      "name": "Intro to Blockchain",
+      "topic": "Intro to Blockchain",
+      "time": "2025-10-14 16:15"
+    },
+    {
+      "id": "member:Diana",
+      "type": "member",
+      "name": "Diana",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "member:Paula",
+      "type": "member",
+      "name": "Paula",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-09-28 11:45",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-09-28 11:45"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-09-25 09:15",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-09-25 09:15"
+    },
+    {
+      "id": "event:Intro to Blockchain@2025-10-01 18:45",
+      "type": "event",
+      "name": "Intro to Blockchain",
+      "topic": "Intro to Blockchain",
+      "time": "2025-10-01 18:45"
+    },
+    {
+      "id": "event:Crypto in Argentina@2025-09-27 10:15",
+      "type": "event",
+      "name": "Crypto in Argentina",
+      "topic": "Crypto in Argentina",
+      "time": "2025-09-27 10:15"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-09-22 20:00",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-09-22 20:00"
+    },
+    {
+      "id": "event:Crypto in Argentina@2025-09-17 10:30",
+      "type": "event",
+      "name": "Crypto in Argentina",
+      "topic": "Crypto in Argentina",
+      "time": "2025-09-17 10:30"
+    },
+    {
+      "id": "event:Global Hackathon Trends@2025-09-18 16:45",
+      "type": "event",
+      "name": "Global Hackathon Trends",
+      "topic": "Global Hackathon Trends",
+      "time": "2025-09-18 16:45"
+    },
+    {
+      "id": "event:Tauri for Desktop Apps@2025-10-11 13:15",
+      "type": "event",
+      "name": "Tauri for Desktop Apps",
+      "topic": "Tauri for Desktop Apps",
+      "time": "2025-10-11 13:15"
+    },
+    {
+      "id": "member:Ivan",
+      "type": "member",
+      "name": "Ivan",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Crypto in Argentina@2025-10-01 16:00",
+      "type": "event",
+      "name": "Crypto in Argentina",
+      "topic": "Crypto in Argentina",
+      "time": "2025-10-01 16:00"
+    },
+    {
+      "id": "event:Holacracy in Startups@2025-09-30 18:30",
+      "type": "event",
+      "name": "Holacracy in Startups",
+      "topic": "Holacracy in Startups",
+      "time": "2025-09-30 18:30"
+    },
+    {
+      "id": "space:Makerspace A1",
+      "type": "space",
+      "name": "Makerspace A1",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:Co-Learning Kickoff@2025-10-11 13:15",
+      "type": "event",
+      "name": "Co-Learning Kickoff",
+      "topic": "Co-Learning Kickoff",
+      "time": "2025-10-11 13:15"
+    },
+    {
+      "id": "event:Co-Learning Kickoff@2025-10-09 12:15",
+      "type": "event",
+      "name": "Co-Learning Kickoff",
+      "topic": "Co-Learning Kickoff",
+      "time": "2025-10-09 12:15"
+    },
+    {
+      "id": "event:Intro to Blockchain@2025-10-05 14:30",
+      "type": "event",
+      "name": "Intro to Blockchain",
+      "topic": "Intro to Blockchain",
+      "time": "2025-10-05 14:30"
+    },
+    {
+      "id": "event:Intro to Blockchain@2025-09-20 10:15",
+      "type": "event",
+      "name": "Intro to Blockchain",
+      "topic": "Intro to Blockchain",
+      "time": "2025-09-20 10:15"
+    },
+    {
+      "id": "event:DIY Hardware Wallet@2025-09-18 13:45",
+      "type": "event",
+      "name": "DIY Hardware Wallet",
+      "topic": "DIY Hardware Wallet",
+      "time": "2025-09-18 13:45"
+    },
+    {
+      "id": "event:Tauri for Desktop Apps@2025-09-21 18:15",
+      "type": "event",
+      "name": "Tauri for Desktop Apps",
+      "topic": "Tauri for Desktop Apps",
+      "time": "2025-09-21 18:15"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-10-10 18:00",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-10-10 18:00"
+    },
+    {
+      "id": "event:Tauri for Desktop Apps@2025-09-22 12:30",
+      "type": "event",
+      "name": "Tauri for Desktop Apps",
+      "topic": "Tauri for Desktop Apps",
+      "time": "2025-09-22 12:30"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-09-18 16:15",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-09-18 16:15"
+    },
+    {
+      "id": "event:Crypto in Argentina@2025-09-24 20:45",
+      "type": "event",
+      "name": "Crypto in Argentina",
+      "topic": "Crypto in Argentina",
+      "time": "2025-09-24 20:45"
+    },
+    {
+      "id": "member:Mike",
+      "type": "member",
+      "name": "Mike",
+      "topic": "",
+      "time": ""
+    },
+    {
+      "id": "event:DIY Hardware Wallet@2025-09-23 09:30",
+      "type": "event",
+      "name": "DIY Hardware Wallet",
+      "topic": "DIY Hardware Wallet",
+      "time": "2025-09-23 09:30"
+    },
+    {
+      "id": "event:Crypto in Argentina@2025-10-07 18:30",
+      "type": "event",
+      "name": "Crypto in Argentina",
+      "topic": "Crypto in Argentina",
+      "time": "2025-10-07 18:30"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-09-24 18:45",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-09-24 18:45"
+    },
+    {
+      "id": "event:Tauri for Desktop Apps@2025-10-13 20:00",
+      "type": "event",
+      "name": "Tauri for Desktop Apps",
+      "topic": "Tauri for Desktop Apps",
+      "time": "2025-10-13 20:00"
+    },
+    {
+      "id": "event:Global Hackathon Trends@2025-09-18 15:45",
+      "type": "event",
+      "name": "Global Hackathon Trends",
+      "topic": "Global Hackathon Trends",
+      "time": "2025-09-18 15:45"
+    },
+    {
+      "id": "event:Global Hackathon Trends@2025-10-12 18:15",
+      "type": "event",
+      "name": "Global Hackathon Trends",
+      "topic": "Global Hackathon Trends",
+      "time": "2025-10-12 18:15"
+    },
+    {
+      "id": "event:Agent CLI Deep Dive@2025-09-20 17:15",
+      "type": "event",
+      "name": "Agent CLI Deep Dive",
+      "topic": "Agent CLI Deep Dive",
+      "time": "2025-09-20 17:15"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-10-09 15:15",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-10-09 15:15"
+    },
+    {
+      "id": "event:Web3 and Society@2025-09-23 13:30",
+      "type": "event",
+      "name": "Web3 and Society",
+      "topic": "Web3 and Society",
+      "time": "2025-09-23 13:30"
+    },
+    {
+      "id": "event:DIY Hardware Wallet@2025-09-25 09:45",
+      "type": "event",
+      "name": "DIY Hardware Wallet",
+      "topic": "DIY Hardware Wallet",
+      "time": "2025-09-25 09:45"
+    },
+    {
+      "id": "event:Holacracy in Startups@2025-09-30 12:30",
+      "type": "event",
+      "name": "Holacracy in Startups",
+      "topic": "Holacracy in Startups",
+      "time": "2025-09-30 12:30"
+    },
+    {
+      "id": "event:Agent CLI Deep Dive@2025-10-03 17:45",
+      "type": "event",
+      "name": "Agent CLI Deep Dive",
+      "topic": "Agent CLI Deep Dive",
+      "time": "2025-10-03 17:45"
+    },
+    {
+      "id": "event:Intro to Blockchain@2025-10-10 12:45",
+      "type": "event",
+      "name": "Intro to Blockchain",
+      "topic": "Intro to Blockchain",
+      "time": "2025-10-10 12:45"
+    },
+    {
+      "id": "event:DIY Hardware Wallet@2025-09-19 09:30",
+      "type": "event",
+      "name": "DIY Hardware Wallet",
+      "topic": "DIY Hardware Wallet",
+      "time": "2025-09-19 09:30"
+    },
+    {
+      "id": "event:Tauri for Desktop Apps@2025-09-29 17:30",
+      "type": "event",
+      "name": "Tauri for Desktop Apps",
+      "topic": "Tauri for Desktop Apps",
+      "time": "2025-09-29 17:30"
+    },
+    {
+      "id": "event:Crypto in Argentina@2025-09-21 15:30",
+      "type": "event",
+      "name": "Crypto in Argentina",
+      "topic": "Crypto in Argentina",
+      "time": "2025-09-21 15:30"
+    },
+    {
+      "id": "event:Creative Coding Jam@2025-09-25 12:15",
+      "type": "event",
+      "name": "Creative Coding Jam",
+      "topic": "Creative Coding Jam",
+      "time": "2025-09-25 12:15"
+    },
+    {
+      "id": "event:Agent CLI Deep Dive@2025-10-03 11:15",
+      "type": "event",
+      "name": "Agent CLI Deep Dive",
+      "topic": "Agent CLI Deep Dive",
+      "time": "2025-10-03 11:15"
+    },
+    {
+      "id": "event:Web3 and Society@2025-09-23 14:00",
+      "type": "event",
+      "name": "Web3 and Society",
+      "topic": "Web3 and Society",
+      "time": "2025-09-23 14:00"
+    },
+    {
+      "id": "event:Co-Learning Kickoff@2025-09-20 16:15",
+      "type": "event",
+      "name": "Co-Learning Kickoff",
+      "topic": "Co-Learning Kickoff",
+      "time": "2025-09-20 16:15"
+    }
+  ],
+  "edges": [
+    {
+      "source": "member:Alice",
+      "target": "event:Intro to Blockchain@2025-09-24 09:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:Global Hackathon Trends@2025-09-18 16:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:Crypto in Argentina@2025-10-01 16:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:Intro to Blockchain@2025-09-20 10:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:DIY Hardware Wallet@2025-09-18 13:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:Crypto in Argentina@2025-09-24 20:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:DIY Hardware Wallet@2025-09-23 09:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Alice",
+      "target": "event:Agent CLI Deep Dive@2025-10-03 11:15",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Intro to Blockchain@2025-09-24 09:45",
+      "target": "member:Oscar",
+      "type": "participates"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Intro to Blockchain@2025-09-24 09:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Intro to Blockchain@2025-10-14 16:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Creative Coding Jam@2025-09-28 11:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Creative Coding Jam@2025-09-22 20:00",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Global Hackathon Trends@2025-09-18 16:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Co-Learning Kickoff@2025-10-09 12:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:DIY Hardware Wallet@2025-09-18 13:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Tauri for Desktop Apps@2025-09-22 12:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Library Room 3",
+      "target": "event:Agent CLI Deep Dive@2025-09-20 17:15",
+      "type": "hosts"
+    },
+    {
+      "source": "member:Charlie",
+      "target": "event:Tauri for Desktop Apps@2025-09-17 19:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Charlie",
+      "target": "event:Agent CLI Deep Dive@2025-09-20 17:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Charlie",
+      "target": "event:Web3 and Society@2025-09-23 13:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Charlie",
+      "target": "event:Creative Coding Jam@2025-09-25 12:15",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Tauri for Desktop Apps@2025-09-17 19:30",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Tauri for Desktop Apps@2025-09-17 19:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Web3 and Society@2025-10-02 09:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Global Hackathon Trends@2025-09-26 19:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Tauri for Desktop Apps@2025-10-11 13:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Crypto in Argentina@2025-10-01 16:00",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Co-Learning Kickoff@2025-10-11 13:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Intro to Blockchain@2025-09-20 10:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Creative Coding Jam@2025-09-18 16:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Crypto in Argentina@2025-09-24 20:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Agent CLI Deep Dive@2025-10-03 17:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Cafe 706",
+      "target": "event:Web3 and Society@2025-09-23 14:00",
+      "type": "hosts"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Creative Coding Jam@2025-10-14 19:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Creative Coding Jam@2025-10-14 15:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Global Hackathon Trends@2025-09-26 19:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Intro to Blockchain@2025-10-14 16:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Tauri for Desktop Apps@2025-09-21 18:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Creative Coding Jam@2025-09-24 18:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Fiona",
+      "target": "event:Intro to Blockchain@2025-10-10 12:45",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-10-14 19:30",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Creative Coding Jam@2025-10-14 19:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Holacracy in Startups@2025-10-11 19:00",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Holacracy in Startups@2025-09-26 17:00",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Crypto in Argentina@2025-09-17 10:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Intro to Blockchain@2025-10-05 14:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Crypto in Argentina@2025-10-07 18:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Creative Coding Jam@2025-09-24 18:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Global Hackathon Trends@2025-10-12 18:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Community Hall",
+      "target": "event:Holacracy in Startups@2025-09-30 12:30",
+      "type": "hosts"
+    },
+    {
+      "source": "member:George",
+      "target": "event:Web3 and Society@2025-10-02 09:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:George",
+      "target": "event:Crypto in Argentina@2025-09-27 10:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:George",
+      "target": "event:Creative Coding Jam@2025-09-18 16:15",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Web3 and Society@2025-10-02 09:45",
+      "target": "member:Rita",
+      "type": "participates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Co-Learning Kickoff@2025-09-24 15:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Creative Coding Jam@2025-09-25 09:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Crypto in Argentina@2025-09-17 10:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Tauri for Desktop Apps@2025-10-11 13:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Holacracy in Startups@2025-09-30 18:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Co-Learning Kickoff@2025-10-11 13:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Tauri for Desktop Apps@2025-10-13 20:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Global Hackathon Trends@2025-10-12 18:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Agent CLI Deep Dive@2025-10-03 17:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Web3 and Society@2025-09-23 14:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Hannah",
+      "target": "event:Co-Learning Kickoff@2025-09-20 16:15",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Co-Learning Kickoff@2025-09-24 15:15",
+      "target": "member:Nina",
+      "type": "participates"
+    },
+    {
+      "source": "space:Online Zoom Room",
+      "target": "event:Co-Learning Kickoff@2025-09-24 15:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Online Zoom Room",
+      "target": "event:Creative Coding Jam@2025-09-25 09:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Online Zoom Room",
+      "target": "event:Global Hackathon Trends@2025-09-18 15:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Online Zoom Room",
+      "target": "event:Creative Coding Jam@2025-10-09 15:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Online Zoom Room",
+      "target": "event:Crypto in Argentina@2025-09-21 15:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Online Zoom Room",
+      "target": "event:Creative Coding Jam@2025-09-25 12:15",
+      "type": "hosts"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-10-14 15:15",
+      "target": "member:Rita",
+      "type": "participates"
+    },
+    {
+      "source": "space:Virtual Discord",
+      "target": "event:Creative Coding Jam@2025-10-14 15:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Virtual Discord",
+      "target": "event:Intro to Blockchain@2025-10-01 18:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Virtual Discord",
+      "target": "event:Crypto in Argentina@2025-09-27 10:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Virtual Discord",
+      "target": "event:DIY Hardware Wallet@2025-09-23 09:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Virtual Discord",
+      "target": "event:Intro to Blockchain@2025-10-10 12:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Virtual Discord",
+      "target": "event:Tauri for Desktop Apps@2025-09-29 17:30",
+      "type": "hosts"
+    },
+    {
+      "source": "member:Bob",
+      "target": "event:Holacracy in Startups@2025-10-11 19:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Bob",
+      "target": "event:Creative Coding Jam@2025-09-22 20:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Bob",
+      "target": "event:Crypto in Argentina@2025-10-07 18:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Bob",
+      "target": "event:Holacracy in Startups@2025-09-30 12:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Bob",
+      "target": "event:Tauri for Desktop Apps@2025-09-29 17:30",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Holacracy in Startups@2025-10-11 19:00",
+      "target": "member:Judy",
+      "type": "participates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:Holacracy in Startups@2025-09-26 17:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:Intro to Blockchain@2025-10-01 18:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:Co-Learning Kickoff@2025-10-09 12:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:Creative Coding Jam@2025-10-10 18:00",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:Global Hackathon Trends@2025-09-18 15:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:Creative Coding Jam@2025-10-09 15:15",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:DIY Hardware Wallet@2025-09-25 09:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Ethan",
+      "target": "event:DIY Hardware Wallet@2025-09-19 09:30",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Holacracy in Startups@2025-09-26 17:00",
+      "target": "member:Kevin",
+      "type": "participates"
+    },
+    {
+      "source": "event:Global Hackathon Trends@2025-09-26 19:30",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Intro to Blockchain@2025-10-14 16:15",
+      "target": "member:Kevin",
+      "type": "participates"
+    },
+    {
+      "source": "member:Diana",
+      "target": "event:Creative Coding Jam@2025-09-28 11:45",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Diana",
+      "target": "event:Intro to Blockchain@2025-10-05 14:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Diana",
+      "target": "event:Tauri for Desktop Apps@2025-09-22 12:30",
+      "type": "initiates"
+    },
+    {
+      "source": "member:Diana",
+      "target": "event:Crypto in Argentina@2025-09-21 15:30",
+      "type": "initiates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-09-28 11:45",
+      "target": "member:Paula",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-09-25 09:15",
+      "target": "member:Kevin",
+      "type": "participates"
+    },
+    {
+      "source": "event:Intro to Blockchain@2025-10-01 18:45",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Crypto in Argentina@2025-09-27 10:15",
+      "target": "member:Judy",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-09-22 20:00",
+      "target": "member:Paula",
+      "type": "participates"
+    },
+    {
+      "source": "event:Crypto in Argentina@2025-09-17 10:30",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:Global Hackathon Trends@2025-09-18 16:45",
+      "target": "member:Nina",
+      "type": "participates"
+    },
+    {
+      "source": "event:Tauri for Desktop Apps@2025-10-11 13:15",
+      "target": "member:Oscar",
+      "type": "participates"
+    },
+    {
+      "source": "event:Crypto in Argentina@2025-10-01 16:00",
+      "target": "member:Ivan",
+      "type": "participates"
+    },
+    {
+      "source": "event:Holacracy in Startups@2025-09-30 18:30",
+      "target": "member:Judy",
+      "type": "participates"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Holacracy in Startups@2025-09-30 18:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Tauri for Desktop Apps@2025-09-21 18:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Creative Coding Jam@2025-10-10 18:00",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Tauri for Desktop Apps@2025-10-13 20:00",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Web3 and Society@2025-09-23 13:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:DIY Hardware Wallet@2025-09-25 09:45",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:DIY Hardware Wallet@2025-09-19 09:30",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Agent CLI Deep Dive@2025-10-03 11:15",
+      "type": "hosts"
+    },
+    {
+      "source": "space:Makerspace A1",
+      "target": "event:Co-Learning Kickoff@2025-09-20 16:15",
+      "type": "hosts"
+    },
+    {
+      "source": "event:Co-Learning Kickoff@2025-10-11 13:15",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Co-Learning Kickoff@2025-10-09 12:15",
+      "target": "member:Rita",
+      "type": "participates"
+    },
+    {
+      "source": "event:Intro to Blockchain@2025-10-05 14:30",
+      "target": "member:Rita",
+      "type": "participates"
+    },
+    {
+      "source": "event:Intro to Blockchain@2025-09-20 10:15",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:DIY Hardware Wallet@2025-09-18 13:45",
+      "target": "member:Ivan",
+      "type": "participates"
+    },
+    {
+      "source": "event:Tauri for Desktop Apps@2025-09-21 18:15",
+      "target": "member:Paula",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-10-10 18:00",
+      "target": "member:Kevin",
+      "type": "participates"
+    },
+    {
+      "source": "event:Tauri for Desktop Apps@2025-09-22 12:30",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-09-18 16:15",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Crypto in Argentina@2025-09-24 20:45",
+      "target": "member:Rita",
+      "type": "participates"
+    },
+    {
+      "source": "event:DIY Hardware Wallet@2025-09-23 09:30",
+      "target": "member:Mike",
+      "type": "participates"
+    },
+    {
+      "source": "event:Crypto in Argentina@2025-10-07 18:30",
+      "target": "member:Nina",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-09-24 18:45",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Tauri for Desktop Apps@2025-10-13 20:00",
+      "target": "member:Nina",
+      "type": "participates"
+    },
+    {
+      "source": "event:Global Hackathon Trends@2025-09-18 15:45",
+      "target": "member:Paula",
+      "type": "participates"
+    },
+    {
+      "source": "event:Global Hackathon Trends@2025-10-12 18:15",
+      "target": "member:Ivan",
+      "type": "participates"
+    },
+    {
+      "source": "event:Agent CLI Deep Dive@2025-09-20 17:15",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-10-09 15:15",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:Web3 and Society@2025-09-23 13:30",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:DIY Hardware Wallet@2025-09-25 09:45",
+      "target": "member:Laura",
+      "type": "participates"
+    },
+    {
+      "source": "event:Holacracy in Startups@2025-09-30 12:30",
+      "target": "member:Mike",
+      "type": "participates"
+    },
+    {
+      "source": "event:Agent CLI Deep Dive@2025-10-03 17:45",
+      "target": "member:Mike",
+      "type": "participates"
+    },
+    {
+      "source": "event:Intro to Blockchain@2025-10-10 12:45",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:DIY Hardware Wallet@2025-09-19 09:30",
+      "target": "member:Judy",
+      "type": "participates"
+    },
+    {
+      "source": "event:Tauri for Desktop Apps@2025-09-29 17:30",
+      "target": "member:Ivan",
+      "type": "participates"
+    },
+    {
+      "source": "event:Crypto in Argentina@2025-09-21 15:30",
+      "target": "member:Oscar",
+      "type": "participates"
+    },
+    {
+      "source": "event:Creative Coding Jam@2025-09-25 12:15",
+      "target": "member:Kevin",
+      "type": "participates"
+    },
+    {
+      "source": "event:Agent CLI Deep Dive@2025-10-03 11:15",
+      "target": "member:Nina",
+      "type": "participates"
+    },
+    {
+      "source": "event:Web3 and Society@2025-09-23 14:00",
+      "target": "member:Quinn",
+      "type": "participates"
+    },
+    {
+      "source": "event:Co-Learning Kickoff@2025-09-20 16:15",
+      "target": "member:Nina",
+      "type": "participates"
+    }
+  ]
+}
