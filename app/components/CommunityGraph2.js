@@ -1,11 +1,14 @@
-import { useEffect, createRef } from 'react'
+import { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import { useState } from 'react'
 
-export default function D3Example({ width, height }) {
-  const ref = createRef()
+export default function D3Example({ width = 800, height = 600 }) {
+  // const ref = createRef()
+  const containerRef = useRef(null)
+  const svgRef = useRef(null)
 
   const [data, setData] = useState(null)
+  const [size, setSize] = useState({ width, height })
 
   useEffect(() => {
     fetch('/graph_data.json')
@@ -14,22 +17,45 @@ export default function D3Example({ width, height }) {
       .catch(error => console.error('Error fetching the data:', error))
   }, [])
 
+  // ResizeObserver: 让 SVG 填满外层 div
+  useEffect(() => {
+    const roEl = containerRef.current
+    if (!roEl) return
+    const observer = new ResizeObserver(entries => {
+      for (let entry of entries) {
+        const cr = entry.contentRect
+        setSize({
+          width: Math.max(1, Math.floor(cr.width)),
+          height: Math.max(1, Math.floor(cr.height))
+        })
+      }
+    })
+    observer.observe(roEl)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
-    if (data) {
+    if (data && size.width && size.height) {
       draw()
     }
-  }, [data])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, size])
 
   const draw = () => {
-    const svg = d3.select(ref.current)
+    const svg = d3.select(svgRef.current)
     svg.selectAll('*').remove()
+
+    // 删除页面上可能残留的 tooltip（避免重复）
+    d3.select('body').selectAll('.cg-tooltip').remove()
 
     // 添加形状定义
     const symbolTypes = {
       event: d3.symbolSquare,
       space: d3.symbolTriangle,
-      member: d3.symbolCircle
+      member: d3.symbolCircle,
+      person: d3.symbolCircle,
+      act: d3.symbolSquare,
+      area: d3.symbolTriangle
     }
 
     // 创建symbol生成器
@@ -37,54 +63,55 @@ export default function D3Example({ width, height }) {
 
     var tooltip = d3.select("body")
       .append("div")
+      .attr('class', 'cg-tooltip')
       .style("position", "absolute")
-      .style("z-index", "10")
+      .style("z-index", "9999")
       .style("visibility", "hidden")
-      .text("a simple tooltip");
-    // Specify the dimensions of the chart.
+      .style("padding", "6px 8px")
+      .style("background", "rgba(0,0,0,0.75)")
+      .style("color", "white")
+      .style("border-radius", "4px")
+      .style("font-size", "12px")
 
     // Specify the color scale.
     const color = d3.scaleOrdinal(d3.schemeCategory10)
-
-    // The force simulation mutates links and nodes, so create a copy
-    // so that re-evaluating this cell produces the same result.
 
     const links = data.edges.map(d => ({ ...d }))
     const nodes = data.nodes.map(d => ({ ...d }))
 
     // Create a simulation with several forces.
+    // 注意这里在每次 draw 都创建新的 simulation，需在 cleanup 时停止
     const simulation = d3.forceSimulation(nodes)
       .force('link', d3.forceLink(links)
         .id(d => d.id)
         .distance(d => {
-          const baseLength = 50; // 基础单位长度
+          const baseLength = 50;
           const sourceType = d.source.type;
           const targetType = d.target.type;
 
           if (sourceType === 'person' && targetType === 'act') {
-            return baseLength * 2; // person -> act: 2个单位
+            return baseLength * 2;
           } else if (sourceType === 'act' && targetType === 'person') {
-            return baseLength; // act -> person: 1个单位
+            return baseLength;
           } else if (sourceType === 'act' && targetType === 'area') {
-            return baseLength * 2.5; // act -> area: 3个单位
+            return baseLength * 2.5;
           }
-          return baseLength; // 默认1个单位
+          return baseLength;
         })
       )
       .force('charge', d3.forceManyBody()
-        .strength(-200)  // 增加节点间的斥力
-        .distanceMax(200)  // 限制斥力的最大作用距离
+        .strength(-200)
+        .distanceMax(200)
       )
-      .force('center', d3.forceCenter(width / 2, height / 2)) // 添加中心力
-      .force('collision', d3.forceCollide().radius(30))  // 防止节点重叠
-
+      .force('center', d3.forceCenter(size.width / 2, size.height / 2))
+      .force('collision', d3.forceCollide().radius(30))
 
     // Create the SVG container.
     const container = svg.append('g')
 
     // 创建缩放行为
     const zoom = d3.zoom()
-      .scaleExtent([0.1, 10]) // 设置缩放范围
+      .scaleExtent([0.1, 10])
       .on('zoom', (event) => {
         container.attr('transform', event.transform)
       })
@@ -94,17 +121,16 @@ export default function D3Example({ width, height }) {
 
     // 使用 container 替代之前的 svgContainer
     const svgContainer = container
-      .attr('width', width)
-      .attr('height', height)
-      .attr('viewBox', [-width / 2, -height / 2, width, height])
-      .attr('style', 'max-width: 100%; height: auto;')
-
+      .attr('width', size.width)
+      .attr('height', size.height)
+      .attr('viewBox', [0, 0, size.width, size.height])
+      .attr('style', 'max-width: 100%; height: 100%;')
 
     // 在 SVG 容器中定义箭头标记
     svg.append('defs').append('marker')
       .attr('id', 'arrowhead')
       .attr('viewBox', '0 -5 10 10')
-      .attr('refX', 15)  // 调整箭头位置
+      .attr('refX', 15)
       .attr('refY', 0)
       .attr('markerWidth', 8)
       .attr('markerHeight', 8)
@@ -113,7 +139,6 @@ export default function D3Example({ width, height }) {
       .attr('d', 'M0,-5L10,0L0,5')
       .attr('fill', '#999');
 
-    // Add a line for each link, and a circle for each node.
     const link = svgContainer.append('g')
       .attr('stroke', '#999')
       .attr('stroke-opacity', 0.6)
@@ -121,8 +146,7 @@ export default function D3Example({ width, height }) {
       .data(links)
       .join('line')
       .attr('stroke-width', d => Math.sqrt(d.value))
-      .attr('marker-end', 'url(#arrowhead)');  // 添加箭头标记
-
+      .attr('marker-end', 'url(#arrowhead)');
 
     const node = svgContainer.append('g')
       .attr('stroke', '#fff')
@@ -130,12 +154,25 @@ export default function D3Example({ width, height }) {
       .selectAll('path')
       .data(nodes)
       .join('path')
-      .attr('r', 5)
-      .attr('d', d => symbol.type(symbolTypes[d.type])())  // 根据类型设置形状
-      .attr('fill', d => color(d.type))  // 根据类型设置颜色
-      .call(drag(simulation))
+      .attr('d', d => symbol.type(symbolTypes[d.type || d.group || 'member'])())
+      .attr('fill', d => color(d.type || d.group))
+      .call(d3.drag()
+        .on('start', function (event, d) {
+          if (!event.active) simulation.alphaTarget(0.3).restart()
+          d.fx = d.x
+          d.fy = d.y
+        })
+        .on('drag', function (event, d) {
+          d.fx = event.x
+          d.fy = event.y
+        })
+        .on('end', function (event, d) {
+          if (!event.active) simulation.alphaTarget(0)
+          d.fx = null
+          d.fy = null
+        })
+      )
       .on("mouseover", function (event, d) {
-        console.log("mouseover", d)
         tooltip.text(d.id)
         return tooltip.style("visibility", "visible");
       })
@@ -152,33 +189,20 @@ export default function D3Example({ width, height }) {
         .attr('y2', d => d.target.y)
 
       node
-        .attr('transform', d => `translate(${d.x},${d.y})`)  // 使用transform来移动path
-
+        .attr('transform', d => `translate(${d.x},${d.y})`)
     })
+
+    // cleanup: stop simulation and remove tooltip on redraw/unmount
+    return () => {
+      simulation.stop()
+      d3.select('body').selectAll('.cg-tooltip').remove()
+      svg.selectAll('*').remove()
+    }
   }
 
-  const drag = simulation => {
-    function dragstarted(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart()
-      d.fx = d.x
-      d.fy = d.y
-    }
-
-    function dragged(event, d) {
-      d.fx = event.x
-      d.fy = event.y
-    }
-
-    function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(0)
-      d.fx = null
-      d.fy = null
-    }
-
-    return d3.drag()
-      .on('start', dragstarted)
-      .on('drag', dragged)
-      .on('end', dragended)
-  }
-  return <svg width={width} height={height} ref={ref} />
+  return (
+    <div ref={containerRef} style={{ width: '100%', height: '100%' }}>
+      <svg ref={svgRef} style={{ width: '100%', height: '100%', display: 'block' }} />
+    </div>
+  )
 }
