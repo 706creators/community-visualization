@@ -10,7 +10,7 @@ topics = [
     "Agent CLI Deep Dive", "Co-Learning Kickoff", "Global Hackathon Trends", "Crypto in Argentina",
     "Holacracy in Startups", "Creative Coding Jam"
 ]
-venues = ["Cafe 706", "Online Zoom Room", "Makerspace A1", "Community Hall", "Library Room 3", "Virtual Discord"]
+venues = ["Cafe", "Online Zoom Room", "Makerspace A1", "Community Hall", "Library Room 3", "Virtual Discord"]
 
 # 随机生成时间（未来一个月内的日期，随机时段）
 def random_datetime():

@@ -50,9 +50,9 @@
       "time": "2025-09-17 19:30"
     },
     {
-      "id": "space:Cafe 706",
+      "id": "space:Cafe",
       "type": "space",
-      "name": "Cafe 706",
+      "name": "Cafe",
       "topic": "",
       "time": ""
     },
@@ -636,57 +636,57 @@
       "type": "participates"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Tauri for Desktop Apps@2025-09-17 19:30",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Web3 and Society@2025-10-02 09:45",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Global Hackathon Trends@2025-09-26 19:30",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Tauri for Desktop Apps@2025-10-11 13:15",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Crypto in Argentina@2025-10-01 16:00",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Co-Learning Kickoff@2025-10-11 13:15",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Intro to Blockchain@2025-09-20 10:15",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Creative Coding Jam@2025-09-18 16:15",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Crypto in Argentina@2025-09-24 20:45",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Agent CLI Deep Dive@2025-10-03 17:45",
       "type": "hosts"
     },
     {
-      "source": "space:Cafe 706",
+      "source": "space:Cafe",
       "target": "event:Web3 and Society@2025-09-23 14:00",
       "type": "hosts"
     },
