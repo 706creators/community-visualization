@@ -7,25 +7,110 @@ import {
   ChevronRightIcon,
   DocumentArrowUpIcon,
 } from "@heroicons/react/24/outline";
-import Image from "next/image";
 
 export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [uploadedData, setUploadedData] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const [parseError, setParseError] = useState("");
+
+  // CSV解析函数
+  const parseCSV = (csvText) => {
+    try {
+      const lines = csvText.trim().split("\n");
+      const headers = lines[0].split(",").map((h) => h.trim());
+
+      const nodes = new Map();
+      const edges = [];
+
+      // 解析每一行数据
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(",").map((v) => v.trim());
+        const row = {};
+
+        headers.forEach((header, index) => {
+          row[header] = values[index] || "";
+        });
+
+        // 根据CSV格式创建节点和边
+        // 假设CSV格式：source,target,relationship,source_type,target_type,time
+        const { source, target, relationship, source_type, target_type, time } =
+          row;
+
+        if (source && target) {
+          // 添加源节点
+          if (!nodes.has(source)) {
+            nodes.set(source, {
+              id: source,
+              type: source_type || "person",
+              name: source,
+              time: time || null,
+            });
+          }
+
+          // 添加目标节点
+          if (!nodes.has(target)) {
+            nodes.set(target, {
+              id: target,
+              type: target_type || "person",
+              name: target,
+              time: time || null,
+            });
+          }
+
+          // 添加边
+          edges.push({
+            source: source,
+            target: target,
+            relationship: relationship || "connected",
+            value: 1,
+          });
+        }
+      }
+
+      return {
+        nodes: Array.from(nodes.values()),
+        edges: edges,
+      };
+    } catch (error) {
+      throw new Error(`CSV解析错误: ${error.message}`);
+    }
+  };
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file && file.type === "text/csv") {
+      setFileName(file.name);
+      setParseError("");
+
       const reader = new FileReader();
       reader.onload = (e) => {
-        const csvData = e.target.result;
-        // TODO: 解析CSV数据并转换为图形数据格式
-        // 这里先设置一个示例，你需要根据CSV格式来解析
-        console.log("CSV Data:", csvData);
-        // setUploadedData(parsedData);
+        try {
+          const csvData = e.target.result;
+          console.log("Raw CSV Data:", csvData);
+
+          const parsedData = parseCSV(csvData);
+          console.log("Parsed Data:", parsedData);
+
+          setUploadedData(parsedData);
+        } catch (error) {
+          console.error("解析错误:", error);
+          setParseError(error.message);
+        }
       };
       reader.readAsText(file);
+    } else {
+      setParseError("请选择有效的CSV文件");
     }
+  };
+
+  const resetData = () => {
+    setUploadedData(null);
+    setFileName("");
+    setParseError("");
+    // 重置文件输入
+    const fileInput = document.getElementById("csv-upload");
+    if (fileInput) fileInput.value = "";
   };
 
   return (
@@ -82,7 +167,40 @@ export default function Home() {
                     Upload your community data in CSV format
                   </p>
                 </div>
+
+                {/* 显示上传的文件名 */}
+                {fileName && (
+                  <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-md">
+                    <p className="text-sm text-green-700">已上传: {fileName}</p>
+                    <button
+                      onClick={resetData}
+                      className="text-xs text-green-600 hover:text-green-800 mt-1"
+                    >
+                      重新上传
+                    </button>
+                  </div>
+                )}
+
+                {/* 显示解析错误 */}
+                {parseError && (
+                  <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-md">
+                    <p className="text-sm text-red-700">{parseError}</p>
+                  </div>
+                )}
               </div>
+
+              {/* Data Info */}
+              {uploadedData && (
+                <div>
+                  <h2 className="text-lg font-medium text-gray-700 mb-3">
+                    Data Info
+                  </h2>
+                  <div className="bg-gray-50 p-3 rounded-md text-sm">
+                    <p>节点数量: {uploadedData.nodes.length}</p>
+                    <p>边数量: {uploadedData.edges.length}</p>
+                  </div>
+                </div>
+              )}
 
               {/* Graph Controls */}
               <div>
@@ -90,7 +208,10 @@ export default function Home() {
                   Controls
                 </h2>
                 <div className="space-y-3">
-                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                  <button
+                    onClick={resetData}
+                    className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                  >
                     Reset View
                   </button>
                   <button className="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
@@ -104,7 +225,7 @@ export default function Home() {
                 <h2 className="text-lg font-medium text-gray-700 mb-3">Legend</h2>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                    <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
                     <span>Person</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -146,7 +267,9 @@ export default function Home() {
               Community Network Visualization
             </h1>
             <div className="text-sm text-gray-500">
-              Interactive graph visualization
+              {uploadedData
+                ? `${uploadedData.nodes.length} nodes, ${uploadedData.edges.length} edges`
+                : "Interactive graph visualization"}
             </div>
           </div>
         </header>

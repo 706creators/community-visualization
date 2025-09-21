@@ -1,0 +1,15 @@
+source,target,relationship,source_type,target_type,time
+Alice,会议室A,参与,person,area,2024-01-15 09:00
+Bob,会议室A,参与,person,area,2024-01-15 09:00
+Charlie,会议室A,参与,person,area,2024-01-15 09:00
+Alice,项目启动会,参加,person,event,2024-01-15 09:30
+Bob,项目启动会,参加,person,event,2024-01-15 09:30
+Charlie,项目启动会,参加,person,event,2024-01-15 09:30
+Alice,Bob,合作,person,person,2024-01-15 10:00
+Bob,Charlie,合作,person,person,2024-01-15 10:00
+Alice,Charlie,讨论,person,person,2024-01-15 10:30
+David,会议室B,使用,person,area,2024-01-15 14:00
+Eva,会议室B,使用,person,area,2024-01-15 14:00
+David,培训活动,组织,person,event,2024-01-15 14:30
+Eva,培训活动,参加,person,event,2024-01-15 14:30
+Alice,培训活动,参加,person,event,2024-01-15 14:30
