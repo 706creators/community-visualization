@@ -14,12 +14,6 @@ import {
   createTimeGrid, 
   addTimeConstraints 
 } from '../utils/timelineUtils';
-import { 
-  createLinks, 
-  createNodes, 
-  createLabels, 
-  addDragBehavior 
-} from '../utils/renderUtils';
 
 export default function CommunityGraph({ width = 800, height = 600, data: externalData }) {
   const containerRef = useRef(null);
@@ -77,6 +71,26 @@ export default function CommunityGraph({ width = 800, height = 600, data: extern
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedNode]);
+
+  // 添加拖拽行为的辅助函数
+  const addDragBehavior = (nodeSelection, simulation) => {
+    return nodeSelection.call(d3.drag()
+      .on('start', function (event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      })
+      .on('drag', function (event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+      })
+      .on('end', function (event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      })
+    );
+  };
 
   const updateHighlighting = () => {
     if (!data || !elementsRef.current.linkSelection) return;
