@@ -1,101 +1,163 @@
+"use client";
+
+import { useState } from "react";
+import D3Example from "@/app/components/CommunityGraph2";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  DocumentArrowUpIcon,
+} from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [uploadedData, setUploadedData] = useState(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === "text/csv") {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const csvData = e.target.result;
+        // TODO: 解析CSV数据并转换为图形数据格式
+        // 这里先设置一个示例，你需要根据CSV格式来解析
+        console.log("CSV Data:", csvData);
+        // setUploadedData(parsedData);
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  return (
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar */}
+      <div
+        className={`${
+          sidebarOpen ? "w-80" : "w-16"
+        } transition-all duration-300 bg-white shadow-lg border-r border-gray-200 flex flex-col`}
+      >
+        {/* Sidebar Header */}
+        <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+          {sidebarOpen && (
+            <h1 className="text-xl font-semibold text-gray-800">
+              Community Graph
+            </h1>
+          )}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-md hover:bg-gray-100 text-gray-600"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            {sidebarOpen ? (
+              <ChevronLeftIcon className="w-5 h-5" />
+            ) : (
+              <ChevronRightIcon className="w-5 h-5" />
+            )}
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Sidebar Content */}
+        <div className="flex-1 p-4">
+          {sidebarOpen ? (
+            <div className="space-y-6">
+              {/* Upload Section */}
+              <div>
+                <h2 className="text-lg font-medium text-gray-700 mb-3">
+                  Data Upload
+                </h2>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                  <DocumentArrowUpIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <label htmlFor="csv-upload" className="cursor-pointer">
+                    <span className="text-sm text-gray-600">
+                      Click to upload CSV file
+                    </span>
+                    <input
+                      id="csv-upload"
+                      type="file"
+                      accept=".csv"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                  <p className="text-xs text-gray-500 mt-2">
+                    Upload your community data in CSV format
+                  </p>
+                </div>
+              </div>
+
+              {/* Graph Controls */}
+              <div>
+                <h2 className="text-lg font-medium text-gray-700 mb-3">
+                  Controls
+                </h2>
+                <div className="space-y-3">
+                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                    Reset View
+                  </button>
+                  <button className="w-full px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
+                    Export Graph
+                  </button>
+                </div>
+              </div>
+
+              {/* Legend */}
+              <div>
+                <h2 className="text-lg font-medium text-gray-700 mb-3">Legend</h2>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-blue-500 rounded"></div>
+                    <span>Person</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-4 h-4 bg-green-500"
+                      style={{
+                        clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
+                      }}
+                    ></div>
+                    <span>Space/Area</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 bg-red-500"></div>
+                    <span>Event/Act</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="p-3 w-full rounded-md hover:bg-gray-100 text-gray-600"
+                title="Upload CSV"
+              >
+                <DocumentArrowUpIcon className="w-6 h-6 mx-auto" />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-gray-900">
+              Community Network Visualization
+            </h1>
+            <div className="text-sm text-gray-500">
+              Interactive graph visualization
+            </div>
+          </div>
+        </header>
+
+        {/* Graph Container */}
+        <main className="flex-1 p-6">
+          <div className="w-full h-full bg-white rounded-lg shadow-sm border border-gray-200">
+            <D3Example data={uploadedData} />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
