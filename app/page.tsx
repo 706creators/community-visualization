@@ -8,25 +8,44 @@ import {
   DocumentArrowUpIcon,
 } from "@heroicons/react/24/outline";
 
+interface Node {
+  id: string;
+  type: string;
+  name: string;
+  time: string | null;
+}
+
+interface Edge {
+  source: string;
+  target: string;
+  relationship: string;
+  value: number;
+}
+
+interface GraphData {
+  nodes: Node[];
+  edges: Edge[];
+}
+
 export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [uploadedData, setUploadedData] = useState(null);
+  const [uploadedData, setUploadedData] = useState<GraphData | null>(null);
   const [fileName, setFileName] = useState("");
   const [parseError, setParseError] = useState("");
 
   // CSV解析函数
-  const parseCSV = (csvText) => {
+  const parseCSV = (csvText: string): GraphData => {
     try {
       const lines = csvText.trim().split("\n");
       const headers = lines[0].split(",").map((h) => h.trim());
 
-      const nodes = new Map();
-      const edges = [];
+      const nodes = new Map<string, Node>();
+      const edges: Edge[] = [];
 
       // 解析每一行数据
       for (let i = 1; i < lines.length; i++) {
         const values = lines[i].split(",").map((v) => v.trim());
-        const row = {};
+        const row: { [key: string]: string } = {};
 
         headers.forEach((header, index) => {
           row[header] = values[index] || "";
@@ -73,12 +92,12 @@ export default function Home() {
         edges: edges,
       };
     } catch (error) {
-      throw new Error(`CSV解析错误: ${error.message}`);
+      throw new Error(`CSV解析错误: ${(error as Error).message}`);
     }
   };
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file && file.type === "text/csv") {
       setFileName(file.name);
       setParseError("");
@@ -86,7 +105,7 @@ export default function Home() {
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          const csvData = e.target.result;
+          const csvData = e.target?.result as string;
           console.log("Raw CSV Data:", csvData);
 
           const parsedData = parseCSV(csvData);
@@ -95,7 +114,7 @@ export default function Home() {
           setUploadedData(parsedData);
         } catch (error) {
           console.error("解析错误:", error);
-          setParseError(error.message);
+          setParseError((error as Error).message);
         }
       };
       reader.readAsText(file);
@@ -109,7 +128,7 @@ export default function Home() {
     setFileName("");
     setParseError("");
     // 重置文件输入
-    const fileInput = document.getElementById("csv-upload");
+    const fileInput = document.getElementById("csv-upload") as HTMLInputElement;
     if (fileInput) fileInput.value = "";
   };
 
