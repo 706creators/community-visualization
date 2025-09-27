@@ -106,6 +106,8 @@ export default function Sidebar({ uploadedData, setUploadedData }: SidebarProps)
                 </label>
                 <p className="text-xs text-gray-500 mt-2">
                   Expected format: 发起人姓名,参与人姓名,活动主题,活动场地,活动时间
+                  <br />
+                  Multiple names separated by semicolon (;)
                 </p>
               </div>
 
