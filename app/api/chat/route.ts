@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// 定义类型接口
+interface MemberParticipation {
+  name: string;
+  participation: number;
+}
+
 // API配置
 const API_CONFIGS = {
   deepseek: {
@@ -43,7 +49,7 @@ export async function POST(request: NextRequest) {
       const spaceNodes = nodes.filter((n: any) => n.type === 'space');
       
       // 活动分析
-      const eventsBySpace = eventNodes.reduce((acc: any, event: any) => {
+      const eventsBySpace = eventNodes.reduce((acc: Record<string, number>, event: any) => {
         const spaceEdge = edges.find((e: any) => e.target === event.id && e.relationship === 'hosts');
         if (spaceEdge) {
           const space = nodes.find((n: any) => n.id === spaceEdge.source);
@@ -55,7 +61,7 @@ export async function POST(request: NextRequest) {
       }, {});
       
       // 成员参与度分析
-      const memberParticipation = memberNodes.map((member: any) => {
+      const memberParticipation: MemberParticipation[] = memberNodes.map((member: any) => {
         const participateEdges = edges.filter((e: any) => 
           e.source === member.id && e.relationship === 'initiates' ||
           e.target === member.id && e.relationship === 'participates'
@@ -64,20 +70,20 @@ export async function POST(request: NextRequest) {
           name: member.name,
           participation: participateEdges.length
         };
-      }).sort((a, b) => b.participation - a.participation);
+      }).sort((a: MemberParticipation, b: MemberParticipation) => b.participation - a.participation);
 
       // 时间分布分析
       const eventTimes = eventNodes
         .filter((e: any) => e.time)
         .map((e: any) => new Date(e.time))
-        .sort((a, b) => a.getTime() - b.getTime());
+        .sort((a: Date, b: Date) => a.getTime() - b.getTime());
       
       detailedContext = `
 详细数据分析：
 - 节点总数: ${nodes.length} (成员: ${memberNodes.length}, 活动: ${eventNodes.length}, 场地: ${spaceNodes.length})
 - 边总数: ${edges.length}
 - 活动分布: ${Object.entries(eventsBySpace).map(([space, count]) => `${space}(${count}场)`).join(', ')}
-- 最活跃成员: ${memberParticipation.slice(0, 3).map(m => `${m.name}(${m.participation}次)`).join(', ')}
+- 最活跃成员: ${memberParticipation.slice(0, 3).map((m: MemberParticipation) => `${m.name}(${m.participation}次)`).join(', ')}
 - 时间范围: ${eventTimes.length > 0 ? `${eventTimes[0].toLocaleDateString()} 至 ${eventTimes[eventTimes.length-1].toLocaleDateString()}` : '未知'}
 
 具体数据样本：
@@ -92,7 +98,7 @@ export async function POST(request: NextRequest) {
     const systemPrompt = `你是一个专门分析社区网络图的AI助手。${detailedContext}
 
 你的任务是：
-1. 以“发起人（initiator）”作为社区链路的起点，追踪其发起事件带来的加入与激活过程。同时，识别“参与者（participant）”在社区中的角色：他们既是链路的承接者，也可能演化为新的发起人。
+1. 以"发起人（initiator）"作为社区链路的起点，追踪其发起事件带来的加入与激活过程。同时，识别"参与者（participant）"在社区中的角色：他们既是链路的承接者，也可能演化为新的发起人。
 2. 基于上传的 CSV 数据（发起人、参与者、活动场地、活动时间），构建时序社区网络图谱，并校验数据质量，确保能还原发起人-参与者-场地-时间的关系。
 3. 为发起人建立指标：直接招募的参与者数量、下游传播规模与深度、覆盖的场地与时间跨度。
 4. 为参与者建立指标：参与次数（频率）、跨场地参与度、跨时间持续度、是否转化为新的发起人、在网络中的入度与中介中心性。
