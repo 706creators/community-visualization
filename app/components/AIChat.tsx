@@ -12,14 +12,18 @@ interface Message {
   content: string;
   sender: 'user' | 'ai';
   timestamp: Date;
+  provider?: string;
+  model?: string;
+  isStreaming?: boolean; // 是否正在流式接收
 }
 
 interface AIChatProps {
-  graphData?: any; // 可以传入图数据供AI参考
+  graphData?: any;
 }
 
 export default function AIChat({ graphData }: AIChatProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentProvider, setCurrentProvider] = useState<string>('DeepSeek');
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -49,54 +53,119 @@ export default function AIChat({ graphData }: AIChatProps) {
     }
   }, [isOpen]);
 
-  // 模拟AI回复（这里可以接入真实的AI API）
-  const generateAIResponse = async (userMessage: string): Promise<string> => {
-    // 模拟延迟
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 2000));
+  // 流式调用AI API
+  const generateAIResponseStream = async (userMessage: string): Promise<void> => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          graphData: graphData
+        }),
+      });
 
-    // 基于图数据和用户消息生成回复
-    const nodeCount = graphData?.nodes?.length || 0;
-    const edgeCount = graphData?.edges?.length || 0;
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-    if (userMessage.includes('节点') || userMessage.includes('node')) {
-      return `当前图中有 ${nodeCount} 个节点。这些节点包括成员、活动和场地。你想了解哪种类型的节点更多信息？`;
-    }
+      const reader = response.body?.getReader();
+      if (!reader) {
+        throw new Error('无法获取响应流');
+      }
 
-    if (userMessage.includes('边') || userMessage.includes('关系') || userMessage.includes('edge')) {
-      return `当前图中有 ${edgeCount} 条边，表示不同节点之间的关系。主要关系类型包括：发起人→活动、活动→参与人、场地→活动。`;
-    }
-
-    if (userMessage.includes('分析') || userMessage.includes('统计')) {
-      const memberNodes = graphData?.nodes?.filter((n: any) => n.type === 'member')?.length || 0;
-      const eventNodes = graphData?.nodes?.filter((n: any) => n.type === 'event')?.length || 0;
-      const spaceNodes = graphData?.nodes?.filter((n: any) => n.type === 'space')?.length || 0;
+      const decoder = new TextDecoder();
+      let aiMessageId = (Date.now() + 1).toString();
+      let currentContent = '';
       
-      return `让我为你分析当前的社区网络：
-- 总共 ${memberNodes} 个成员
-- ${eventNodes} 个活动
-- ${spaceNodes} 个场地
-- ${edgeCount} 个关系连接
+      // 创建一个空的AI消息作为占位符
+      const aiMessage: Message = {
+        id: aiMessageId,
+        content: '',
+        sender: 'ai',
+        timestamp: new Date(),
+        isStreaming: true,
+      };
 
-这个网络显示了一个活跃的社区，成员通过各种活动建立联系。`;
+      // 先添加空消息
+      setMessages(prev => [...prev, aiMessage]);
+
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value);
+          const lines = chunk.split('\n');
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = line.slice(6);
+              
+              try {
+                const parsed = JSON.parse(data);
+                
+                if (parsed.type === 'init') {
+                  // 更新提供商信息
+                  setCurrentProvider(parsed.provider);
+                  setMessages(prev => prev.map(msg => 
+                    msg.id === aiMessageId 
+                      ? { ...msg, provider: parsed.provider, model: parsed.model }
+                      : msg
+                  ));
+                } else if (parsed.type === 'content') {
+                  // 累积内容
+                  currentContent += parsed.content;
+                  setMessages(prev => prev.map(msg => 
+                    msg.id === aiMessageId 
+                      ? { ...msg, content: currentContent }
+                      : msg
+                  ));
+                } else if (parsed.type === 'done') {
+                  // 完成流式传输
+                  setMessages(prev => prev.map(msg => 
+                    msg.id === aiMessageId 
+                      ? { ...msg, isStreaming: false }
+                      : msg
+                  ));
+                  break;
+                } else if (parsed.type === 'error') {
+                  // 处理错误
+                  setMessages(prev => prev.map(msg => 
+                    msg.id === aiMessageId 
+                      ? { 
+                          ...msg, 
+                          content: parsed.message || '抱歉，AI服务出现错误。',
+                          isStreaming: false 
+                        }
+                      : msg
+                  ));
+                  break;
+                }
+              } catch (parseError) {
+                console.warn('解析流数据失败:', parseError);
+              }
+            }
+          }
+        }
+      } finally {
+        reader.releaseLock();
+      }
+
+    } catch (error) {
+      console.error('AI流式调用失败:', error);
+      
+      // 添加错误消息
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: '抱歉，我现在无法回复。请检查网络连接或稍后再试。',
+        sender: 'ai',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorMessage]);
     }
-
-    if (userMessage.includes('如何') || userMessage.includes('怎么')) {
-      return `你可以这样使用图表：
-1. 点击节点查看该节点的下游关系
-2. 拖拽节点调整位置
-3. 使用鼠标滚轮缩放
-4. 在左侧上传CSV文件分析你的数据`;
-    }
-
-    // 默认回复
-    const responses = [
-      `基于你上传的数据，我看到这是一个有趣的社区网络！你想了解哪个方面的信息？`,
-      `我可以帮你分析网络中的关键节点、关系密度或者活动模式。你有什么具体想了解的吗？`,
-      `这个社区网络显示了丰富的互动关系。你可以点击图中的节点来探索具体的连接。`,
-      `我注意到网络中有多种类型的节点和关系。你想深入了解某个特定的部分吗？`
-    ];
-    
-    return responses[Math.floor(Math.random() * responses.length)];
   };
 
   const handleSendMessage = async () => {
@@ -114,23 +183,9 @@ export default function AIChat({ graphData }: AIChatProps) {
     setIsLoading(true);
 
     try {
-      const aiResponse = await generateAIResponse(userMessage.content);
-      const aiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: aiResponse,
-        sender: 'ai',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, aiMessage]);
+      await generateAIResponseStream(userMessage.content);
     } catch (error) {
-      console.error('AI回复失败:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: '抱歉，我现在无法回复。请稍后再试。',
-        sender: 'ai',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMessage]);
+      console.error('发送消息失败:', error);
     } finally {
       setIsLoading(false);
     }
@@ -143,6 +198,19 @@ export default function AIChat({ graphData }: AIChatProps) {
     }
   };
 
+  // 生成数据摘要文本
+  const getDataSummary = () => {
+    if (!graphData) return '暂无数据';
+    
+    const nodeCount = graphData.nodes?.length || 0;
+    const edgeCount = graphData.edges?.length || 0;
+    const memberCount = graphData.nodes?.filter((n: any) => n.type === 'member')?.length || 0;
+    const eventCount = graphData.nodes?.filter((n: any) => n.type === 'event')?.length || 0;
+    const spaceCount = graphData.nodes?.filter((n: any) => n.type === 'space')?.length || 0;
+    
+    return `${nodeCount}节点 (${memberCount}成员, ${eventCount}活动, ${spaceCount}场地)`;
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {/* 聊天浮窗 */}
@@ -152,8 +220,13 @@ export default function AIChat({ graphData }: AIChatProps) {
           <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-blue-50 rounded-t-lg">
             <div className="flex items-center gap-2">
               <ChatBubbleLeftRightIcon className="w-5 h-5 text-blue-600" />
-              <span className="font-medium text-gray-900">AI助手</span>
-              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+              <div className="flex flex-col">
+                <span className="font-medium text-gray-900 text-sm">AI助手</span>
+                <span className="text-xs text-gray-500">
+                  {currentProvider} | {getDataSummary()}
+                </span>
+              </div>
+              <div className={`w-2 h-2 rounded-full ml-1 ${isLoading ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'}`}></div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -177,15 +250,29 @@ export default function AIChat({ graphData }: AIChatProps) {
                       : 'bg-gray-100 text-gray-900 rounded-bl-none'
                   }`}
                 >
-                  <p className="whitespace-pre-wrap">{message.content}</p>
-                  <p className={`text-xs mt-1 ${
+                  <p className="whitespace-pre-wrap">
+                    {message.content}
+                    {/* 流式传输时显示光标 */}
+                    {message.isStreaming && (
+                      <span className="inline-block w-2 h-4 bg-gray-500 ml-1 animate-pulse"></span>
+                    )}
+                  </p>
+                  <div className={`text-xs mt-1 flex justify-between items-center ${
                     message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
                   }`}>
-                    {message.timestamp.toLocaleTimeString([], { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    })}
-                  </p>
+                    <span>
+                      {message.timestamp.toLocaleTimeString([], { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                      })}
+                    </span>
+                    {message.provider && message.sender === 'ai' && (
+                      <span className="text-xs opacity-75">
+                        {message.provider}
+                        {message.isStreaming && " • 输入中..."}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -195,7 +282,7 @@ export default function AIChat({ graphData }: AIChatProps) {
               <div className="flex justify-start">
                 <div className="bg-gray-100 text-gray-900 rounded-lg rounded-bl-none px-3 py-2 text-sm">
                   <div className="flex items-center gap-1">
-                    <span>AI正在思考</span>
+                    <span>AI正在分析数据</span>
                     <div className="flex gap-1">
                       <div className="w-1 h-1 bg-gray-500 rounded-full animate-bounce"></div>
                       <div className="w-1 h-1 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -218,7 +305,7 @@ export default function AIChat({ graphData }: AIChatProps) {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="输入你的问题..."
+                placeholder={graphData ? "基于你的数据提问..." : "请先上传CSV数据"}
                 className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                 disabled={isLoading}
               />
@@ -230,6 +317,11 @@ export default function AIChat({ graphData }: AIChatProps) {
                 <PaperAirplaneIcon className="w-4 h-4" />
               </button>
             </div>
+            {isLoading && (
+              <div className="text-xs text-gray-500 mt-1">
+                正在连接 {currentProvider} AI...
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -237,8 +329,12 @@ export default function AIChat({ graphData }: AIChatProps) {
       {/* 圆形按钮 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center group"
+        className="w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center group relative"
+        title={`AI助手 (${getDataSummary()})`}
       >
+        {isLoading && (
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping"></div>
+        )}
         {isOpen ? (
           <XMarkIcon className="w-6 h-6" />
         ) : (
