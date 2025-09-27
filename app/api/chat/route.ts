@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
+import type { GraphData, Node, Edge } from '../../types/graph';
 
 // 定义类型接口
 interface MemberParticipation {
@@ -22,7 +23,7 @@ const API_CONFIGS = {
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, graphData } = await request.json();
+    const { message, graphData }: { message: string; graphData?: GraphData } = await request.json();
 
     // 获取AI提供商配置
     const provider = process.env.AI_PROVIDER || 'deepseek';
@@ -44,15 +45,15 @@ export async function POST(request: NextRequest) {
       const edges = graphData.edges;
       
       // 统计信息
-      const memberNodes = nodes.filter((n: any) => n.type === 'member');
-      const eventNodes = nodes.filter((n: any) => n.type === 'event');
-      const spaceNodes = nodes.filter((n: any) => n.type === 'space');
+      const memberNodes = nodes.filter((n: Node) => n.type === 'member');
+      const eventNodes = nodes.filter((n: Node) => n.type === 'event');
+      const spaceNodes = nodes.filter((n: Node) => n.type === 'space');
       
       // 活动分析
-      const eventsBySpace = eventNodes.reduce((acc: Record<string, number>, event: any) => {
-        const spaceEdge = edges.find((e: any) => e.target === event.id && e.relationship === 'hosts');
+      const eventsBySpace = eventNodes.reduce((acc: Record<string, number>, event: Node) => {
+        const spaceEdge = edges.find((e: Edge) => e.target === event.id && e.relationship === 'hosts');
         if (spaceEdge) {
-          const space = nodes.find((n: any) => n.id === spaceEdge.source);
+          const space = nodes.find((n: Node) => n.id === spaceEdge.source);
           if (space) {
             acc[space.name] = (acc[space.name] || 0) + 1;
           }
@@ -61,10 +62,10 @@ export async function POST(request: NextRequest) {
       }, {});
       
       // 成员参与度分析
-      const memberParticipation: MemberParticipation[] = memberNodes.map((member: any) => {
-        const participateEdges = edges.filter((e: any) => 
-          e.source === member.id && e.relationship === 'initiates' ||
-          e.target === member.id && e.relationship === 'participates'
+      const memberParticipation: MemberParticipation[] = memberNodes.map((member: Node) => {
+        const participateEdges = edges.filter((e: Edge) => 
+          (e.source === member.id && e.relationship === 'initiates') ||
+          (e.target === member.id && e.relationship === 'participates')
         );
         return {
           name: member.name,
@@ -74,8 +75,8 @@ export async function POST(request: NextRequest) {
 
       // 时间分布分析
       const eventTimes = eventNodes
-        .filter((e: any) => e.time)
-        .map((e: any) => new Date(e.time))
+        .filter((e: Node) => e.time)
+        .map((e: Node) => new Date(e.time!))
         .sort((a: Date, b: Date) => a.getTime() - b.getTime());
       
       detailedContext = `
@@ -87,9 +88,9 @@ export async function POST(request: NextRequest) {
 - 时间范围: ${eventTimes.length > 0 ? `${eventTimes[0].toLocaleDateString()} 至 ${eventTimes[eventTimes.length-1].toLocaleDateString()}` : '未知'}
 
 具体数据样本：
-成员: ${memberNodes.slice(0, 5).map((n: any) => n.name).join(', ')}${memberNodes.length > 5 ? '等' : ''}
-活动: ${eventNodes.slice(0, 3).map((n: any) => n.name).join(', ')}${eventNodes.length > 3 ? '等' : ''}
-场地: ${spaceNodes.map((n: any) => n.name).join(', ')}`;
+成员: ${memberNodes.slice(0, 5).map((n: Node) => n.name).join(', ')}${memberNodes.length > 5 ? '等' : ''}
+活动: ${eventNodes.slice(0, 3).map((n: Node) => n.name).join(', ')}${eventNodes.length > 3 ? '等' : ''}
+场地: ${spaceNodes.map((n: Node) => n.name).join(', ')}`;
     } else {
       detailedContext = '当前没有上传图数据。请用户先上传CSV文件来分析社区网络。';
     }
@@ -126,7 +127,7 @@ export async function POST(request: NextRequest) {
           content: message
         }
       ],
-      stream: true, // 开启流式响应
+      stream: true,
       max_tokens: 800,
       temperature: 0.7,
     };
@@ -165,7 +166,6 @@ export async function POST(request: NextRequest) {
         }
 
         try {
-          // 发送初始化信息
           const initData = JSON.stringify({
             type: 'init',
             provider: provider,
@@ -185,7 +185,6 @@ export async function POST(request: NextRequest) {
                 const data = line.slice(6);
                 
                 if (data === '[DONE]') {
-                  // 发送完成信号
                   const doneData = JSON.stringify({
                     type: 'done'
                   });
@@ -199,7 +198,6 @@ export async function POST(request: NextRequest) {
                   if (parsed.choices && parsed.choices[0] && parsed.choices[0].delta) {
                     const content = parsed.choices[0].delta.content;
                     if (content) {
-                      // 发送内容片段
                       const chunkData = JSON.stringify({
                         type: 'content',
                         content: content
@@ -208,7 +206,6 @@ export async function POST(request: NextRequest) {
                     }
                   }
                 } catch (parseError) {
-                  // 忽略解析错误，继续处理下一行
                   console.warn('解析SSE数据失败:', parseError);
                 }
               }
@@ -239,7 +236,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('AI API调用失败:', error);
     
-    // 对于错误情况，返回错误的流式响应
     const encoder = new TextEncoder();
     const errorStream = new ReadableStream({
       start(controller) {
@@ -254,7 +250,7 @@ export async function POST(request: NextRequest) {
     });
 
     return new Response(errorStream, {
-      status: 200, // 使用200状态码，错误信息在流中传递
+      status: 200,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
         'Cache-Control': 'no-cache',

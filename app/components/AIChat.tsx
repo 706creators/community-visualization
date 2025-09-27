@@ -6,6 +6,7 @@ import {
   XMarkIcon, 
   PaperAirplaneIcon 
 } from '@heroicons/react/24/outline';
+import type { GraphData } from '../types/graph';
 
 interface Message {
   id: string;
@@ -14,11 +15,11 @@ interface Message {
   timestamp: Date;
   provider?: string;
   model?: string;
-  isStreaming?: boolean; // 是否正在流式接收
+  isStreaming?: boolean;
 }
 
 interface AIChatProps {
-  graphData?: any;
+  graphData?: GraphData | null;
 }
 
 export default function AIChat({ graphData }: AIChatProps) {
@@ -37,7 +38,6 @@ export default function AIChat({ graphData }: AIChatProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // 自动滚动到最新消息
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -46,14 +46,12 @@ export default function AIChat({ graphData }: AIChatProps) {
     scrollToBottom();
   }, [messages]);
 
-  // 聚焦输入框
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
 
-  // 流式调用AI API
   const generateAIResponseStream = async (userMessage: string): Promise<void> => {
     try {
       const response = await fetch('/api/chat', {
@@ -77,10 +75,9 @@ export default function AIChat({ graphData }: AIChatProps) {
       }
 
       const decoder = new TextDecoder();
-      let aiMessageId = (Date.now() + 1).toString();
+      const aiMessageId = (Date.now() + 1).toString();
       let currentContent = '';
       
-      // 创建一个空的AI消息作为占位符
       const aiMessage: Message = {
         id: aiMessageId,
         content: '',
@@ -89,7 +86,6 @@ export default function AIChat({ graphData }: AIChatProps) {
         isStreaming: true,
       };
 
-      // 先添加空消息
       setMessages(prev => [...prev, aiMessage]);
 
       try {
@@ -108,7 +104,6 @@ export default function AIChat({ graphData }: AIChatProps) {
                 const parsed = JSON.parse(data);
                 
                 if (parsed.type === 'init') {
-                  // 更新提供商信息
                   setCurrentProvider(parsed.provider);
                   setMessages(prev => prev.map(msg => 
                     msg.id === aiMessageId 
@@ -116,7 +111,6 @@ export default function AIChat({ graphData }: AIChatProps) {
                       : msg
                   ));
                 } else if (parsed.type === 'content') {
-                  // 累积内容
                   currentContent += parsed.content;
                   setMessages(prev => prev.map(msg => 
                     msg.id === aiMessageId 
@@ -124,7 +118,6 @@ export default function AIChat({ graphData }: AIChatProps) {
                       : msg
                   ));
                 } else if (parsed.type === 'done') {
-                  // 完成流式传输
                   setMessages(prev => prev.map(msg => 
                     msg.id === aiMessageId 
                       ? { ...msg, isStreaming: false }
@@ -132,7 +125,6 @@ export default function AIChat({ graphData }: AIChatProps) {
                   ));
                   break;
                 } else if (parsed.type === 'error') {
-                  // 处理错误
                   setMessages(prev => prev.map(msg => 
                     msg.id === aiMessageId 
                       ? { 
@@ -157,7 +149,6 @@ export default function AIChat({ graphData }: AIChatProps) {
     } catch (error) {
       console.error('AI流式调用失败:', error);
       
-      // 添加错误消息
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: '抱歉，我现在无法回复。请检查网络连接或稍后再试。',
@@ -198,25 +189,21 @@ export default function AIChat({ graphData }: AIChatProps) {
     }
   };
 
-  // 生成数据摘要文本
   const getDataSummary = () => {
     if (!graphData) return '暂无数据';
     
     const nodeCount = graphData.nodes?.length || 0;
-    const edgeCount = graphData.edges?.length || 0;
-    const memberCount = graphData.nodes?.filter((n: any) => n.type === 'member')?.length || 0;
-    const eventCount = graphData.nodes?.filter((n: any) => n.type === 'event')?.length || 0;
-    const spaceCount = graphData.nodes?.filter((n: any) => n.type === 'space')?.length || 0;
+    const memberCount = graphData.nodes?.filter((n) => n.type === 'member')?.length || 0;
+    const eventCount = graphData.nodes?.filter((n) => n.type === 'event')?.length || 0;
+    const spaceCount = graphData.nodes?.filter((n) => n.type === 'space')?.length || 0;
     
     return `${nodeCount}节点 (${memberCount}成员, ${eventCount}活动, ${spaceCount}场地)`;
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      {/* 聊天浮窗 */}
       {isOpen && (
         <div className="mb-4 w-80 h-96 bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col">
-          {/* 头部 */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-blue-50 rounded-t-lg">
             <div className="flex items-center gap-2">
               <ChatBubbleLeftRightIcon className="w-5 h-5 text-blue-600" />
@@ -236,7 +223,6 @@ export default function AIChat({ graphData }: AIChatProps) {
             </button>
           </div>
 
-          {/* 消息列表 */}
           <div className="flex-1 p-4 overflow-y-auto space-y-3">
             {messages.map((message) => (
               <div
@@ -252,7 +238,6 @@ export default function AIChat({ graphData }: AIChatProps) {
                 >
                   <p className="whitespace-pre-wrap">
                     {message.content}
-                    {/* 流式传输时显示光标 */}
                     {message.isStreaming && (
                       <span className="inline-block w-2 h-4 bg-gray-500 ml-1 animate-pulse"></span>
                     )}
@@ -277,7 +262,6 @@ export default function AIChat({ graphData }: AIChatProps) {
               </div>
             ))}
             
-            {/* AI思考中指示器 */}
             {isLoading && (
               <div className="flex justify-start">
                 <div className="bg-gray-100 text-gray-900 rounded-lg rounded-bl-none px-3 py-2 text-sm">
@@ -296,7 +280,6 @@ export default function AIChat({ graphData }: AIChatProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* 输入框 */}
           <div className="p-4 border-t border-gray-200">
             <div className="flex items-center gap-2">
               <input
@@ -326,7 +309,6 @@ export default function AIChat({ graphData }: AIChatProps) {
         </div>
       )}
 
-      {/* 圆形按钮 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center group relative"
