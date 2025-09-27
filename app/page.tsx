@@ -3,6 +3,7 @@
 import { useState } from "react";
 import D3Example from "@/app/components/CommunityGraph2";
 import Sidebar from "@/app/components/Sidebar";
+import AIChat from "@/app/components/AIChat";
 import { GraphData } from "./types/graph";
 
 export default function Home() {
@@ -39,6 +40,9 @@ export default function Home() {
           </div>
         </main>
       </div>
+
+      {/* AI Chat Float Window */}
+      <AIChat graphData={uploadedData} />
     </div>
   );
 }
